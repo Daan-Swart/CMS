@@ -50,7 +50,7 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
                     <h1 class='display-1'>Users Management</h1>
                     <a href="users.php">Users management</a>
                     |
-                    <a href="users.php">Posts management</a>
+                    <a href="posts.php">Posts management</a>
                     <p id="demo"></p>
                     <table class="table table-striped table-hover">
                         <tr>
