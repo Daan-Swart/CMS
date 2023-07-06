@@ -68,7 +68,6 @@ if (isset($_POST['title'])) {
     tinymce.init({
         selector: '#content'
     });
-    console.log("je moeder");
 </script>
 <?php
 include('includes/footer.php');
