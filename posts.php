@@ -51,7 +51,7 @@ if ($stm = $connect->prepare('SELECT * FROM posts')) {
                     <h1 class='display-1'>Posts management</h1>
                     <a href="users.php">Users management</a>
                     |
-                    <a href="users.php">Posts management</a>
+                    <a href="posts.php">Posts management</a>
                     <p id="demo"></p>
                     <table class="table table-striped table-hover">
                         <tr>
