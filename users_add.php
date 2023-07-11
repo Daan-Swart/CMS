@@ -7,7 +7,7 @@ include('includes/functions.php');
 secure();
 include('includes/header.php');
 
-include('includes/footer.php');
+
 
 if (isset($_POST['username'])) {
     $username = $_POST['username'];
@@ -69,3 +69,6 @@ if (isset($_POST['username'])) {
     </div>
 
 </div>
+<?php
+include('includes/footer.php');
+?>

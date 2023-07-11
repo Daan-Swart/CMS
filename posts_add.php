@@ -7,13 +7,12 @@ include('includes/functions.php');
 secure();
 include('includes/header.php');
 
-include('includes/footer.php');
 
 if (isset($_POST['title'])) {
 
     if ($stm = $connect->prepare('INSERT INTO posts (title, content, author, date) VALUES (?,?,?,?)')) {
         $hashed = sha1($password);
-        $stm->bind_param('ssis', $_POST['title'], $_POST['content'], $_POST['author'], $_POST['date']);
+        $stm->bind_param('ssis', $_POST['title'], $_POST['content'], $_SESSION['id'], $_POST['date']);
         $stm->execute();
 
         set_message("A new post " . $_POST['author'] . " has been added");
@@ -28,7 +27,7 @@ if (isset($_POST['title'])) {
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-10">
             <h1 class='display-1'>Add Post</h1>
             <form method="post">
 
@@ -38,12 +37,6 @@ if (isset($_POST['title'])) {
                     <label class="form-label" for="title">Title</label>
                 </div>
 
-                <!-- author input -->
-                <div class="form-outline mb-4">
-                    <input type="number" id="author" name="author" class="form-control" />
-                    <label class="form-label" for="author">Author</label>
-                </div>
-
                 <!-- content input -->
                 <div class="form-outline mb-4">
                     <textarea name="content" id="content"></textarea>
@@ -51,7 +44,7 @@ if (isset($_POST['title'])) {
 
                 <!-- date select -->
                 <div class="form-outline mb-4">
-                    <input type="date" id="date" name="date" class="form-control" />
+                    <input type="date" id="datepicker" name="date" value="<?php echo date('Y-m-d');?>" class="form-control" />
                     <label class="form-label" for="date">Date</label>
                 </div>
 

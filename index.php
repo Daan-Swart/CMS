@@ -11,7 +11,7 @@ if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');
 }
 
-include('includes/footer.php');
+
 
 
 
@@ -31,7 +31,7 @@ if (isset($_POST['email'])) {
             $_SESSION['email'] = $user['email'];
             $_SESSION['username'] = $user['username'];
 
-            set_message("You have succesfully logged in " . $_SESSION['username'] );
+            set_message("You have succesfully logged in " . $_SESSION['username']);
             header('Location: dashboard.php');
             die();
         }
@@ -44,6 +44,7 @@ if (isset($_POST['email'])) {
     <?php get_message() ?>
     <div class="row justify-content-center">
         <div class="col-md-6">
+            <h1 class='display-1'>Log in</h1>
             <form method="post">
                 <!-- Email input -->
                 <div class="form-outline mb-4">
@@ -63,3 +64,7 @@ if (isset($_POST['email'])) {
         </div>
     </div>
 </div>
+
+<?php
+include('includes/footer.php');
+?>
