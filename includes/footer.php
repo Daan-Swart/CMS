@@ -1,5 +1,25 @@
 <html>
-    <body>
-        <script src="js/mdb.min.js"></script>
-    </body>
+
+<body>
+    <div id="toast"></div>
+    <script>
+        function showToast(message, position, type) {
+            const toast = document.getElementById("toast");
+            toast.className = toast.className + " show";
+
+            if (message) toast.innerText = message;
+
+            if (position !== "") toast.className = toast.className + ` ${position}`;
+            if (type !== "") toast.className = toast.className + ` ${type}`;
+
+            setTimeout(function() {
+                toast.className = toast.className.replace(" show", "");
+            }, 4000);
+        }
+    </script>
+
+    <script src="js/mdb.min.js"></script>
+    <?php get_message() ?>
+</body>
+
 </html>

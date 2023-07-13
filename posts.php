@@ -17,16 +17,23 @@ include('includes/footer.php');
     }
 </script>
 
+
 <?php
+
+
 if (isset($_GET['delete'])) {
 
-    if ($stm = $connect->prepare('DELETE FROM users WHERE id = ?')) {
+    if ($stm = $connect->prepare('DELETE FROM posts WHERE id = ?')) {
         $stm->bind_param('i', $_GET['delete']);
         $stm->execute();
         
         set_message("Post " . $_GET['delete'] . " has been deleted");
-        $connect->query('ALTER TABLE users AUTO_INCREMENT = 1');
-        echo header("Location: post.php");
+
+        $sql = "SET @num := 0;";
+        $sql .= "UPDATE posts SET id = @num := (@num+1);";
+        $sql .= "ALTER TABLE posts AUTO_INCREMENT=1;";
+        $connect->multi_query($sql);
+        header("Location: posts.php");
         $stm->close();
         die();
     } else {
