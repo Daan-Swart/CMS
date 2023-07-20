@@ -1,10 +1,9 @@
 <?php
 
-
+ob_start();
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-secure();
 include('includes/header.php');
 
 
@@ -22,7 +21,7 @@ if (isset($_POST['username'])) {
         $stm->execute();
 
         set_message("A new user " . $username . " has been added");
-        header('Location: users.php');
+        header('Location: a_users.php');
         $stm->close();
         die();
     } else {

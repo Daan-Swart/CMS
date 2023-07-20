@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 
 include('includes/config.php');
 include('includes/database.php');
@@ -11,10 +11,6 @@ if (isset($_SESSION['id'])) {
     header('Location: dashboard.php');
 }
 
-
-
-
-
 if (isset($_POST['email'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
@@ -25,6 +21,9 @@ if (isset($_POST['email'])) {
 
         $result = $stm->get_result();
         $user = $result->fetch_assoc();
+        if(empty($user)){
+            echo '<p style="color: red;">Gegevens kloppen niet</p>';
+        }
 
         if ($user) {
             $_SESSION['id'] = $user['id'];
@@ -36,7 +35,9 @@ if (isset($_POST['email'])) {
             die();
         }
         $stm->close();
-    } else {
+    } 
+    else {
+        
         echo 'Could not prepere statement';
     }
 } ?>

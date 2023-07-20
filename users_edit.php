@@ -1,23 +1,20 @@
 <?php
-
+ob_start();
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-secure();
-
 include('includes/header.php');
 
 
 
 if (isset($_POST['username'])) {
-
     if ($stm = $connect->prepare('UPDATE users set  username = ?,email = ? , active = ?  WHERE id = ?')) {
         $stm->bind_param('sssi', $_POST['username'], $_POST['email'], $_POST['active'], $_GET['id']);
         $stm->execute();
 
         $stm->close();
 
-        if (isset($_POST['password'])) {
+        if (!empty($_POST['password'])) {
             if ($stm = $connect->prepare('UPDATE users set  password = ? WHERE id = ?')) {
                 $hashed = SHA1($_POST['password']);
                 $stm->bind_param('si', $hashed, $_GET['id']);
@@ -29,7 +26,20 @@ if (isset($_POST['username'])) {
             }
         }
 
-        set_message("User  " . $_GET['id'] . " has been updated");
+
+
+        if ($_SESSION['id'] == "1") {
+            if ($_GET['id'] == "1") {
+                set_message("Your account has been updated");
+                header('Location: a_users.php');
+                die();
+            } else {
+                set_message("User  " . $_GET['id'] . " has been updated");
+                header('Location: a_users.php');
+                die();
+            }
+        }
+        set_message("Your account has been updated");
         header('Location: users.php');
         die();
     } else {
@@ -68,7 +78,7 @@ if (isset($_GET['id'])) {
 
                             <!-- Password input -->
                             <div class="form-outline mb-4">
-                                <input type="password" id="password" name="password" class="form-control" />
+                                <input type="password" id="password" name="password" class="form-control"/>
                                 <label class="form-label" for="password">Password</label>
                             </div>
 

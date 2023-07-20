@@ -29,12 +29,18 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="/cms">Home</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Logout</a>
-                    </li>
+                    <?php if (isset($_SESSION['username'])) {
+                    ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="dashboard.php">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Logout</a>
+                        </li>
+                    <?php
+                    }
+                    ?>
+
                 </ul>
             </div>
         </div>

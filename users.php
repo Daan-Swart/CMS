@@ -1,10 +1,8 @@
 <?php
-
-
+ob_start();
 include('includes/config.php');
 include('includes/database.php');
 include('includes/functions.php');
-secure();
 include('includes/header.php');
 
 include('includes/footer.php');
@@ -25,7 +23,7 @@ if (isset($_GET['delete'])) {
         $stm->execute();
         set_message(" User " . $_GET['delete'] . " has been deleted");
         $connect->query('ALTER TABLE users AUTO_INCREMENT = 1');
-        echo header("Location: users.php");
+        echo header("Location: a_users.php");
         $stm->close();
         die();
     } else {
@@ -58,7 +56,7 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
                             <th>Username</th>
                             <th>Email</th>
                             <th>Status</th>
-                            <th>Edit | Delete</th>
+                            <th>Edit</th>
 
                         </tr>
                         <?php while ($record = mysqli_fetch_assoc($result)) : ?>
@@ -68,15 +66,17 @@ if ($stm = $connect->prepare('SELECT * FROM users')) {
                                 <td><?php echo $record['username'] ?></td>
                                 <td><?php echo $record['email'] ?></td>
                                 <td><?php echo $record['active'] ?></td>
-                                <td><a href="users_edit.php?id=<?php echo $record['id'] ?>&email=<?php echo $record['email'] ?>">Edit</a> |
-                                    <a href="users.php?delete=<?php echo $record['id'] ?>" onClick="return confirm('Wil je dit account verwijderen?')">Delete</a>
-                                </td>
+                                <?php if ($record['id'] == $_SESSION['id']) {
+                                    echo '<td><a href="users_edit.php?id=' . $record['id'] .'">Edit</a></td>';
+                                    continue;
+                                }
+                                echo "<td></td>";
+                                ?>
                             </tr>
                         <?php endwhile; ?>
 
 
                     </table>
-                    <a href="users_add.php">Add new user</a>
 
                 </div>
             </div>
